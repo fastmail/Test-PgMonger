@@ -1,5 +1,6 @@
 use v5.22.0;
 package Test::PgMonger;
+# ABSTRACT: a thing for managing Postgres databases, for testing
 use Moose;
 
 use experimental qw(postderef signatures);
