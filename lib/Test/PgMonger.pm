@@ -30,10 +30,6 @@ package Test::PgMonger::TempDB {
       $self->dsn,
       $self->username,
       $self->password,
-      {
-        auto_savepoint => 1,
-        quote_names    => 1,
-      },
     );
   }
 
