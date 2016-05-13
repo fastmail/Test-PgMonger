@@ -49,7 +49,7 @@ package Test::PgMonger::TempDB {
 has dsn      => (is => 'ro', default => 'dbi:Pg:');
 has username => (is => 'ro', default => 'postgres');
 has password => (is => 'ro', default => undef);
-has basename => (is => 'ro', default => 'dbmonster');
+has basename => (is => 'ro', default => 'test_pgmonger');
 has template => (is => 'ro', default => 'PID_T_N');
 
 has master_dbh => (
