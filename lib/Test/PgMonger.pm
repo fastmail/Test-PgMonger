@@ -20,6 +20,7 @@ package Test::PgMonger::TempDB {
   has dbname   => (is => 'ro', required => 1);
   has username => (is => 'ro', required => 1);
   has password => (is => 'ro', required => 1);
+  has _pid     => (is => 'ro', default  => sub { $$ });
 
   has monster  => (is => 'ro', required => 1);
 
@@ -42,6 +43,7 @@ package Test::PgMonger::TempDB {
 
   sub DEMOLISH ($self, @) {
     return if $self->_is_dead;
+    return if $self->_pid != $$;
     $self->cleanup;
   }
 }
