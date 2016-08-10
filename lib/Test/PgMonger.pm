@@ -54,11 +54,20 @@ has password => (is => 'ro', default => undef);
 has basename => (is => 'ro', default => 'test_pgmonger');
 has template => (is => 'ro', default => 'PID_T_N');
 
-has master_dbh => (
+sub master_dbh ($self) {
+  return $self->_master_dbh unless $self->_has_master_dbh;
+  return $self->_master_dbh if $self->_master_dbh->ping;
+  $self->_clear_master_dbh;
+  return $self->_master_dbh;
+}
+
+has _master_dbh => (
   is      => 'ro',
   isa     => 'Object',
   lazy    => 1,
-  default => sub ($self) {
+  predicate => '_has_master_dbh',
+  clearer   => '_clear_master_dbh',
+  default   => sub ($self) {
     DBI->connect(
       $self->dsn,
       $self->username,
