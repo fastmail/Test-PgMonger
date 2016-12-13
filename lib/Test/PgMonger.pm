@@ -108,7 +108,7 @@ sub create_database ($self) {
 
   $self->master_dbh->do("CREATE USER $name WITH PASSWORD '$name'");
 
-  $self->master_dbh->do("CREATE DATABASE $name TEMPLATE template0 ENCODING UTF8 WITH OWNER $name");
+  $self->master_dbh->do("CREATE DATABASE $name WITH TEMPLATE template0 ENCODING UTF8 OWNER $name");
 
   return Test::PgMonger::TempDB->new({
     dsn      => $self->dsn . "dbname=$name",
