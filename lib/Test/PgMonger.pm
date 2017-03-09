@@ -95,7 +95,7 @@ sub databases ($self) {
 
 my %EXPANDO = (PID => $$, T => $^T, N => sub { state $n; $n++ });
 
-sub create_database ($self) {
+sub create_database ($self, $arg = {}) {
   state $n;
   $n++;
 
@@ -110,8 +110,23 @@ sub create_database ($self) {
 
   $self->master_dbh->do("CREATE DATABASE $name WITH TEMPLATE template0 ENCODING UTF8 OWNER $name");
 
+  my $tempdb_dsn = $self->dsn . "dbname=$name";
+
+  if ($arg->{extra_sql_statements}) {
+    my $master_tmp_dbh = DBI->connect(
+      $tempdb_dsn,
+      $self->username,
+      $self->password,
+      { RaiseError => 1 },
+    );
+
+    for my $stmt (@{ $arg->{extra_sql_statements} }) {
+      $master_tmp_dbh->do(ref $stmt ? @$stmt : $stmt);
+    }
+  }
+
   return Test::PgMonger::TempDB->new({
-    dsn      => $self->dsn . "dbname=$name",
+    dsn      => $tempdb_dsn
     dbname   => $name,
     username => $name,
     password => $name,
