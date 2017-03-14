@@ -126,7 +126,7 @@ sub create_database ($self, $arg = {}) {
   }
 
   return Test::PgMonger::TempDB->new({
-    dsn      => $tempdb_dsn
+    dsn      => $tempdb_dsn,
     dbname   => $name,
     username => $name,
     password => $name,
