@@ -108,7 +108,7 @@ sub create_database ($self, $arg = {}) {
 
   $self->master_dbh->do("CREATE USER $name WITH PASSWORD '$name'");
 
-  $self->master_dbh->do("CREATE DATABASE $name WITH TEMPLATE template0 ENCODING UTF8 OWNER $name");
+  $self->master_dbh->do("CREATE DATABASE $name WITH TEMPLATE template0 ENCODING 'UTF8' OWNER $name");
 
   my $tempdb_dsn = $self->dsn . "dbname=$name";
 
