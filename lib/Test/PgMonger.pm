@@ -93,7 +93,7 @@ sub databases ($self) {
   return grep { 0 == index $_, $self->basename } @$databases;
 }
 
-my %EXPANDO = (PID => $$, T => $^T, N => sub { state $n; $n++ });
+my %EXPANDO = (PID => sub { $$ }, T => $^T, N => sub { state $n; $n++ });
 
 sub create_database ($self, $arg = {}) {
   state $n;
