@@ -22,7 +22,7 @@ package Test::PgMonger::TempDB {
   has password => (is => 'ro', required => 1);
   has _pid     => (is => 'ro', default  => sub { $$ });
 
-  has monster  => (is => 'ro', required => 1);
+  has monger   => (is => 'ro', required => 1);
 
   has _is_dead => (is => 'rw', default  => 0);
 
@@ -35,7 +35,7 @@ package Test::PgMonger::TempDB {
   }
 
   sub cleanup ($self) {
-    my $dbh = $self->monster->master_dbh;
+    my $dbh = $self->monger->master_dbh;
     $dbh->do("DROP DATABASE " . $self->dbname);
     $dbh->do("DROP USER " . $self->username);
     $self->_is_dead(1);
@@ -130,7 +130,7 @@ sub create_database ($self, $arg = {}) {
     dbname   => $name,
     username => $name,
     password => $name,
-    monster  => $self,
+    monger   => $self,
   });
 }
 
