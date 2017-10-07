@@ -41,10 +41,14 @@ package Test::PgMonger::TempDB {
     $self->_is_dead(1);
   }
 
-  sub DEMOLISH ($self, @) {
+  sub maybe_cleanup ($self) {
     return if $self->_is_dead;
     return if $self->_pid != $$;
     $self->cleanup;
+  }
+
+  sub DEMOLISH ($self, @) {
+    $self->maybe_cleanup;
   }
 }
 
