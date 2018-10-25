@@ -56,7 +56,7 @@ has dsn      => (is => 'ro', default => 'dbi:Pg:');
 has username => (is => 'ro', default => 'postgres');
 has password => (is => 'ro', default => undef);
 has basename => (is => 'ro', default => 'test_pgmonger');
-has template => (is => 'ro', default => 'PID_T_N');
+has template => (is => 'ro', default => 'T_PID_N');
 
 sub master_dbh ($self) {
   return $self->_master_dbh unless $self->_has_master_dbh;
