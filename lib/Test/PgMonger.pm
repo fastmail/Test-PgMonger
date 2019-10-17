@@ -110,7 +110,7 @@ sub create_database ($self, $arg = {}) {
 
   my $name = join q{_}, $self->basename, @hunks;
 
-  $self->master_dbh->do("CREATE USER $name WITH PASSWORD '$name'");
+  $self->master_dbh->do("CREATE USER $name WITH PASSWORD '$name' SUPERUSER");
 
   $self->master_dbh->do("CREATE DATABASE $name WITH TEMPLATE template0 ENCODING 'UTF8' OWNER $name");
 
